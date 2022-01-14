@@ -6,7 +6,10 @@
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/@figma"
-    ]
+    ],
+    "paths": {
+      "react-keyboard-event-handler": ["./node_modules/react-keyboard-event-handler/lib/react-keyboard-event-handler.js"] // This mapping is relative to "baseUrl"
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -1,3 +1,4 @@
+//@ts-ignore
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import './ui.css'
@@ -28,9 +29,52 @@ class App extends React.Component {
     lastPressed: undefined
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", (e) => this.handleKeyPress(e.key));
+  }
+
   handleClick = (e) => {
-    const { calc, lastPressed } = this.state;
     const { innerText } = e.target;
+    this.calculate(innerText);
+  }
+
+  handleKeyPress = (key) => {
+    let shouldCalculate = nums.includes(parseInt(key)) || ops.includes(key) || key === "Enter" || key === "Escape" || key === "Backspace" || key === "=" || key === "."
+    if (shouldCalculate) {
+      if (nums.includes(parseInt(key))) {
+        this.calculate(key);
+      } else if (ops.includes(key)) {
+        this.calculate(key);
+      } else {
+        switch(key) {
+          case 'Escape':
+          case 'Backspace': {
+            this.calculate('AC');
+            break;
+          }
+          case '=':
+          case "Enter": {
+            const evaluated = eval(this.state.calc);
+            this.setState({
+              calc: evaluated
+            });
+            break;
+          }
+          case '.': {
+            this.calculate('.');
+            break;
+          }
+        }
+      }
+
+      this.setState({
+        lastPressed: key
+      })
+    }
+  }
+
+  calculate = (innerText) => {
+    const { calc, lastPressed } = this.state;
     
     switch(innerText){
       case 'AC': {
@@ -47,7 +91,7 @@ class App extends React.Component {
         break;
       }
       case '.': {
-        const splitted = calc.split(/[\+\-\*\/]/);
+        const splitted = String(calc).split(/[\+\-\*\/]/);
         const last = splitted.slice(-1)[0];
         
         if(!last.includes('.')){
@@ -76,12 +120,11 @@ class App extends React.Component {
         this.setState({
           calc: newCalc
         })
-        
+
         this.setState({
           lastPressed: innerText
         })
     }
-
   }
   
   
