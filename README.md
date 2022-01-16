@@ -7,4 +7,5 @@ Does + / - / * / ÷ for you.
 
 
 ### Get it
-[plugin link soon](soon)
+
+[Install link](https://www.figma.com/community/plugin/1054540799180823678/Retro-Calculator)
