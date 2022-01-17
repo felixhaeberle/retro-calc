@@ -129,6 +129,7 @@ class App extends React.Component {
   
   
   render() {
+    window.focus();
     const { calc } = this.state;
     
     return (
